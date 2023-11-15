@@ -6,8 +6,8 @@ from tracker import *
 
 model=YOLO('yolov8s.pt')
 
-area1=[(238,390),(218,402),(440,402),(432,390)]
-area2=[(212,406),(188,420),(462,420),(445,406)]     
+area1=[(238,390),(206,413),(551,413),(532,390)]
+area2=[(193,424),(162,441),(570,441),(560,424)]     
 
 cv2.namedWindow('RGB')
 
@@ -23,18 +23,19 @@ exit = {}
 people_out = set()
 
 tracker=Tracker()
+
 while True:
 
     readed,frame = camera.read()
     if readed==False:
         break
-
+    
     frame=cv2.resize(frame,(750,500))
     results=model.predict(frame)
     res=results[0].boxes.data
     px=pd.DataFrame(res).astype("float")
-    list=[]
-             
+    
+    list=[]         
     for index,row in px.iterrows():
  
         x1=int(row[0])
